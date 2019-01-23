@@ -34,38 +34,37 @@
 #include <IRremoteESP8266.h>
 #include <IRsend.h>
 
-#define IR_LED D3  
+#define IR_LED 0  
 
 IRsend irsend(IR_LED);  // Set the GPIO to be used to sending the message.
 
 // Example of data captured by IRrecvDumpV2.ino
-uint16_t rawData[67] = {9000, 4500, 650, 550, 650, 1650, 600, 550, 650, 550,
-                        600, 1650, 650, 550, 600, 1650, 650, 1650, 650, 1650,
-                        600, 550, 650, 1650, 650, 1650, 650, 550, 600, 1650,
-                        650, 1650, 650, 550, 650, 550, 650, 1650, 650, 550,
-                        650, 550, 650, 550, 600, 550, 650, 550, 650, 550,
-                        650, 1650, 600, 550, 650, 1650, 650, 1650, 650, 1650,
-                        650, 1650, 650, 1650, 650, 1650, 600};
-
+uint16_t rawData[67] = {9038, 4434,  604, 516,  604, 514,  602, 1636,  602, 516,  
+                        602, 516,  604, 514,  604, 516,  604, 514,  604, 1632,  
+                        606, 1634,  604, 516,  604, 1634,  604, 1634,  604, 1634,  
+                        604, 1634,   602, 1634,  606, 516,  602, 516,  602, 518,  
+                        628, 1608,  604, 518,  602, 514,  604, 516,  604, 514,  
+                        604, 1632,  606, 1632,  604, 1634,  604, 516,  604, 
+                        1632,  604, 1634,  604, 1634,  606, 1632,  606};  // NEC  20DF10EF
 void setup() {
   irsend.begin();
   Serial.begin(115200, SERIAL_8N1, SERIAL_TX_ONLY);
 }
 
 void loop() {
-#if SEND_NEC
+//#if SEND_NEC
   Serial.println("NEC");
-  irsend.sendNEC(0x00FFE01FUL, 32);
-#endif  // SEND_NEC
-  delay(2000);
-#if SEND_SONY
-  Serial.println("Sony");
-  irsend.sendSony(0xa90, 12, 2);
-#endif  // SEND_SONY
-  delay(2000);
-#if SEND_RAW
-  Serial.println("a rawData capture from IRrecvDumpV2");
-  irsend.sendRaw(rawData, 67, 38);  // Send a raw data capture at 38kHz.
-#endif  // SEND_RAW
-  delay(2000);
+  irsend.sendNEC(0x0020DF10EF, 32);
+//#endif  // SEND_NEC
+  delay(1000);
+//#if SEND_SONY
+//  Serial.println("Sony");
+//  irsend.sendSony(0xa90, 12, 2);
+//#endif  // SEND_SONY
+//  delay(2000);
+//#if SEND_RAW
+//  Serial.println("a rawData capture from IRrecvDumpV2");
+//  irsend.sendRaw(rawData, 67, 38);  // Send a raw data capture at 38kHz.
+//#endif  // SEND_RAW
+//  delay(2000);
 }
