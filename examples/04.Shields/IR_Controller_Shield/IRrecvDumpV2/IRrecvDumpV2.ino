@@ -36,7 +36,7 @@
 // ==================== start of TUNEABLE PARAMETERS ====================
 // An IR detector/demodulator is connected to GPIO pin 14
 // e.g. D5 on a NodeMCU board.
-#define RECV_PIN D4
+#define RECV_PIN 2
 
 // The Serial connection baud rate.
 // i.e. Status message will be sent to the PC at this baud rate.
@@ -108,13 +108,13 @@ decode_results results;  // Somewhere to store the results
 // Display the human readable state of an A/C message if we can.
 void dumpACInfo(decode_results *results) {
   String description = "";
-#if DECODE_DAIKIN
+//#if DECODE_DAIKIN
   if (results->decode_type == DAIKIN) {
     IRDaikinESP ac(0);
     ac.setRaw(results->state);
     description = ac.toString();
   }
-#endif  // DECODE_DAIKIN
+//#endif  // DECODE_DAIKIN
 #if DECODE_FUJITSU_AC
   if (results->decode_type == FUJITSU_AC) {
     IRFujitsuAC ac(0);
